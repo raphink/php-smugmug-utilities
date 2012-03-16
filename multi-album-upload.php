@@ -200,7 +200,10 @@ function get_local_structure($path){
 	$dir = new RecursiveIteratorIterator($dir_iterator, RecursiveIteratorIterator::SELF_FIRST);
 
 	foreach($dir as $file){
-		if($file->isDir()){
+		if($file->getBasename() == '.' || $file->getBasename() == '..') {
+			continue;
+		}
+		else if($file->isDir()){
 			$parent = $file->getPathInfo();
 
 			// If the parent path is the base, we are dealing with a category
